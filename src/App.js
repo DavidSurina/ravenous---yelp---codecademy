@@ -2,6 +2,7 @@ import logo from './logo.svg';
 
 import BusinessList from './components/BusinessList/BusinessList.js';
 import SearchBar from './components/SearchBar/SearchBar.js';
+import Yelp from './util/Yelp';
 
 import './App.css';
 
@@ -24,6 +25,10 @@ function App() {
 
   const searchYelp = (term, location, sortBy) => {
     console.log("Searching Yelp with Pizza, Brooklyn, best_match");
+    const data = Yelp.apiResponse(term, location, sortBy);
+    if(data) {
+      console.log(data);
+    }
   };
 
   return (
