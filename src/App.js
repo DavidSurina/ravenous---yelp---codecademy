@@ -25,6 +25,8 @@ function App() {
       console.log(response);
       if(response) {
         setBusinesses(response.data.businesses);
+      } if (!response) {
+        setBusinesses('something went wrong');
       }
     })
   };

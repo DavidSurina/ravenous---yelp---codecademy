@@ -12,12 +12,14 @@ const Yelp = async(term, location, sortBy) => {
             }
         });
         if(response) {
+            console.log(response)
             return response;
         } else {
             return [];
         }
     }
     catch (e){
+        console.log(e);
         console.error(e);
         return;
     }
