@@ -2,17 +2,7 @@ import React, {useState} from 'react';
 
 import './SearchBar.css';
 
-export default function SearchBar({searchYelp}) {
-  
-  const sortByOptions = {
-    'Best Match': 'best_match',
-    'Highest Rated': 'rating',
-    'Most Reviewed': 'review_count',
-  };
-
-  const [term, setTerm] = useState('');
-  const [location, setLocation] = useState('');
-  const [sortBy, setSortBy] = useState('best_match');
+export default function SearchBar({searchYelp, sortByOptions, sortBy, setSortBy, setTerm, setLocation}) {
 
   const renderSortByOptions = () => {
     return Object.keys(sortByOptions).map((sortByOption) => {
@@ -30,7 +20,7 @@ export default function SearchBar({searchYelp}) {
   };
 
   const handleSearch = (e) => {
-    searchYelp(term, location, sortBy);
+    searchYelp();
     e.preventDefault();
   }
 

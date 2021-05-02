@@ -1,3 +1,5 @@
+import {useState} from 'react';
+
 import logo from './logo.svg';
 
 import BusinessList from './components/BusinessList/BusinessList.js';
@@ -6,35 +8,31 @@ import Yelp from './util/Yelp';
 
 import './App.css';
 
-const business = {
-  imageSrc: 'https://content.codecademy.com/programs/react/ravenous/pizza.jpg',
-  name: 'MarginOtto Pizzeria',
-  address: '1010 Paddington Way',
-  city: 'Flavortown',
-  state: 'NY',
-  zipCode: '10101',
-  category: 'Italian',
-  rating: 4.5,
-  reviewCount: 90,
-};
-
-const businesses = [business, business, business, business, business, business,]
-
-
 function App() {
+  const [term, setTerm] = useState('');
+  const [location, setLocation] = useState('');
+  const [sortBy, setSortBy] = useState('best_match');
+  const [businesses, setBusinesses] = useState([]);
 
-  const searchYelp = (term, location, sortBy) => {
-    console.log("Searching Yelp with Pizza, Brooklyn, best_match");
-    const data = Yelp.apiResponse(term, location, sortBy);
-    if(data) {
-      console.log(data);
-    }
+  const sortByOptions = {
+    'Best Match': 'best_match',
+    'Highest Rated': 'rating',
+    'Most Reviewed': 'review_count',
+  };
+
+  const searchYelp = () => {
+    Yelp(term, location, sortBy).then( response => {
+      console.log(response);
+      if(response) {
+        setBusinesses(response.data.businesses);
+      }
+    })
   };
 
   return (
     <div className="App">
       <h1>ravenous</h1>
-      <SearchBar searchYelp={searchYelp}/>
+      <SearchBar searchYelp={searchYelp} sortByOptions={sortByOptions} sortBy={sortBy} setSortBy={setSortBy} setTerm={setTerm} setLocation={setLocation} />
       <BusinessList businesses={businesses}/>
     </div>
   );
